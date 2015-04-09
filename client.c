@@ -23,6 +23,8 @@ void send_and_recv( int connfd )
     int   lens;
     char send[MAXLINE];
     char recv[MAXLINE];
+	char ip[10];
+	char port[20];
     fd_set rset;
     FD_ZERO( &rset );
     int maxfd = ( fileno( fp ) > connfd ? fileno( fp ) : connfd  + 1 );   
@@ -64,7 +66,9 @@ void send_and_recv( int connfd )
                 recv[lens] = '\0';
                 //!> 写到stdout
                 write( STDOUT_FILENO, recv, MAXLINE );
-                printf("\n");
+				printf("\n");
+				sscanf(recv, "%s_%s\n", ip, port);
+				printf("%s--%s\n", ip, port);
             }
 
         }
