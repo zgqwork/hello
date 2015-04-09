@@ -256,7 +256,7 @@ int main( int argc, char ** argv )
 }
 #endif
 
-#if 0
+#if 1
 int main( int argc, char ** argv )
 {
     //!> char * SERV_IP = "10.30.97.188";
