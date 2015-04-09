@@ -13,6 +13,7 @@
 int fd_A[BACKLOG];    // accepted connection fd
 int conn_amount;    // current connection amount
 
+
 void showclient()
 {
 	int i;
