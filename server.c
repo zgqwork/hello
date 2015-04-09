@@ -23,85 +23,7 @@ void showclient()
 	printf("\n\n");
 }
 
-#if 0
-int main(void)
-{
-	setbuf(stdout,NULL);
-	printf("%d\n",sizeof(long));
-	printf("%d\n",sizeof(int));
-	printf("%d\n",sizeof(long int));
 
-
-
-	pid_t pid  = -1;
-	    int ret    = -1;
-	    int status = -1;
-	    int fd[2]  = {0};
-	    char buf[128] = {0};
-
-	    //创建管道
-	    ret = pipe(fd);
-	    if(-1 == ret)
-	    {
-	        perror("pipe failed: ");
-	        goto _OUT;
-	    }
-
-	    //创建子进程
-	    pid = fork();
-	    if(-1 == (ret=pid))
-	    {
-	        perror("fork failed: ");
-	        goto _OUT;
-	    }
-
-
-	    if(0 != pid)
-	    {
-	        //先关闭读端，以免冲突
-	        close(fd[0]);
-	        //write pipe
-	        int i=0;
-	        for(i=0;i<10;i++) {
-	        	ret = write(fd[1], "howaylee", sizeof("howaylee"));
-	        	//printf("write %d",ret);
-	        }
-	        if(-1 == ret)
-	        {
-	            perror("write failed: ");
-	            goto _OUT;
-	        }
-	    }
-	    else
-	    {
-	        //wait child
-	        //wait(&status);
-	        //先关闭写端，以免冲突
-	        close(fd[1]);
-	        //read pipe
-	        while(1)
-	        {
-	        ret = read(fd[0], buf, sizeof(buf));
-	        if(-1 == ret)
-	        {
-	            perror("read failed: ");
-	            goto _OUT;
-	        }
-
-	        printf("buf = %s\n", buf);
-	        }
-	    }
-
-	_OUT:
-	    return ret;
-
-
-
-	return 0;
-}
-#endif
-
-#if 1
 int main(void)
 {
 	setbuf(stdout,NULL);
@@ -198,7 +120,8 @@ int main(void)
 						inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 				if (new_fd > maxsock)
 					maxsock = new_fd;
-				send(new_fd, "connect ok\n", strlen("connect ok\n"), 0);
+				sprintf(buf, "%s_%s", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+				send(new_fd, buf, strlen(buf), 0);
 			}
 			else {
 				printf("max connections arrive, exit\n");
@@ -217,4 +140,4 @@ int main(void)
 	}
 	exit(0);
 }
-#endif
+
