@@ -19,21 +19,21 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 	socklen_t len = sizeof(struct sockaddr);
 	struct sockaddr_in *client_addr;
 	char port[10];
-	
+
 	/* connect to server */
 	if(connect(sockfd, (struct sockaddr *)pservaddr, servlen) == -1)
 	{
 		perror("connect error");
 		exit(1);
 	}
-	
-	
+
+
 	if (getsockname(sockfd, &local_addr, &len) == 0) {
 		client_addr = (struct sockaddr_in*)&local_addr;
 		printf("%s %d\n", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
 	}
-	
-	
+
+
 	while(fgets(sendline, 80, fp) != NULL)
 	{
 		/* read a line and send to server */
@@ -48,33 +48,33 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		recvline[n] = 0; /* terminate string */
 		//fputs(recvline, stdout);
 		printf("recv==%s\n", recvline);
-		
+
 		int sock_fd;  
-				struct sockaddr_in server_addr;
-				int yes = 1;
-				
-				socklen_t sin_size;
-				if ((sock_fd = socket(AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0)) == -1) {
-					perror("socket");
-					exit(1);
-				}
-				if (setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
-					perror("setsockopt");
-					exit(1);
-				}
-				server_addr.sin_family = AF_INET;         // host byte order
-				server_addr.sin_port = htons(atoi(port));     // short, network byte order
-				server_addr.sin_addr.s_addr = INADDR_ANY;//inet_addr("192.168.0.24"); // automatically fill with my IP
-				memset(server_addr.sin_zero, '\0', sizeof(server_addr.sin_zero));
-				if (bind(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
-					perror("bind");
-					exit(1);
-				}
-				/*if (listen(sock_fd, 100) == -1) {
-					perror("listen");
-					exit(1);
-				}*/
-				printf("listen port %s\n", port);
+		struct sockaddr_in server_addr;
+		int yes = 1;
+
+		socklen_t sin_size;
+		if ((sock_fd = socket(AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0)) == -1) {
+			perror("socket");
+			exit(1);
+		}
+		if (setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &yes, sizeof(int)) == -1) {
+			perror("setsockopt");
+			exit(1);
+		}
+		server_addr.sin_family = AF_INET;         // host byte order
+		server_addr.sin_port = htons(atoi(port));     // short, network byte order
+		server_addr.sin_addr.s_addr = INADDR_ANY;//inet_addr("192.168.0.24"); // automatically fill with my IP
+		memset(server_addr.sin_zero, '\0', sizeof(server_addr.sin_zero));
+		if (bind(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
+			perror("bind");
+			exit(1);
+		}
+		/*if (listen(sock_fd, 100) == -1) {
+		  perror("listen");
+		  exit(1);
+		  }*/
+		printf("listen port %s\n", port);
 	}
 }
 
