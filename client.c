@@ -49,6 +49,8 @@ void send_and_recv( int connfd )
         {
             printf( "client get from server ...\n" );
             memset( recv, 0, sizeof( recv ) );
+			memset( ip, 0, strlen( ip ) );
+			memset( port, 0, strlen( port ) );
             n = read( connfd, recv, MAXLINE );
             if( n == 0 )
             {
@@ -68,7 +70,7 @@ void send_and_recv( int connfd )
                 write( STDOUT_FILENO, recv, MAXLINE );
 				printf("\n");
 				printf("++recv++%s\n", recv);
-				sscanf(recv, "%s_%s", ip, port);
+				sscanf(recv, "%s::%s", ip, port);
 				printf("%s--%s++++\n", ip, port);
             }
 
