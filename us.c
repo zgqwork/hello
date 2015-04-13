@@ -1,4 +1,4 @@
-#if 0
+#if 1
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <string.h>
@@ -13,21 +13,21 @@
 void do_echo(int sockfd, struct sockaddr_in *client_addr)
 {
 	int n;
-	socklen_t len;
+	socklen_t sin_size;
 	char mesg[80];
 	
 	for(;;)
 	{
-		len = sizeof(struct sockaddr_in);
+		sin_size = sizeof(struct sockaddr_in);
 		/* waiting for receive data */
-		n = recvfrom(sockfd, mesg, 80, 0, (struct sockaddr *)client_addr, sizeof(cliaddr));
+		n = recvfrom(sockfd, mesg, 80, 0, (struct sockaddr *)client_addr, &sin_size);
 		/* sent data back to client */
 		
 		//client_addr = (struct sockaddr_in*)pcliaddr;
 		//printf("%s %d", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
-		printf ("received packet from %s:\n", inet_ntoa (pcliaddr->sin_addr));
+		printf ("received packet from %s:\n", inet_ntoa (client_addr->sin_addr));
 		
-		sendto(sockfd, mesg, strlen(mesg), 0, pcliaddr, len);
+		sendto(sockfd, mesg, strlen(mesg), 0, (struct sockaddr *)client_addr, &sin_size);
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,6 +60,9 @@ int main(void)
 #endif
 
 
+
+
+#if 0
 #include <stdio.h>
 
 #include <sys/types.h>
@@ -142,5 +145,7 @@ main (int argc, char *argv[])
   close (s);
   */
   return 0;
-
 }
+#endif
+
+
