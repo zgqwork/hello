@@ -72,10 +72,27 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 			perror("bind");
 			exit(1);
 		}
-		/*if (listen(sock_fd, 100) == -1) {
+		if (listen(sock_fd, 100) == -1) {
 		  perror("listen");
 		  exit(1);
-		  }*/
+		}
+		
+		
+		
+		int new_fd = accept(sock_fd, (struct sockaddr *)&client_addr, &sin_size);
+		if (new_fd <= 0) {
+			perror("accept");
+			return 1;
+		}
+		
+		printf("client %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+		sprintf(recvline, "%s %d", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+		send(new_fd, recvline, strlen(recvline), 0);
+				
+				
+				
+		
+		
 		printf("listen port %s\n", port);
 	}
 }
