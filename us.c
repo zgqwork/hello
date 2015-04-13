@@ -92,7 +92,7 @@ main (int argc, char *argv[])
 
   char buf[BUFSIZE];
 
-  memset (&my_addr, 0, sizeof (my_addr));
+  //memset (&my_addr, 0, sizeof (my_addr));
 
   my_addr.sin_family = AF_INET;
 
@@ -124,26 +124,23 @@ main (int argc, char *argv[])
 
   printf ("waiting for a packet...\n");
 
-  if ((len = recvfrom (s, buf, BUFSIZE, 0, (struct sockaddr *) &remote_addr, &sin_size)) < 0)
-
+  for(;;)
+  {
+	if ((len = recvfrom (s, buf, BUFSIZE, 0, (struct sockaddr *)&remote_addr, &sin_size)) < 0)
     {
-
       perror ("recvfrom");
-
       return 1;
-
     }
-
-  printf ("received packet from %s:\n", inet_ntoa (remote_addr.sin_addr));
-
+    printf("received packet from %s:%d\n", inet_ntoa(remote_addr.sin_addr), ntohs(remote_addr->sin_port));
+	sendto(s, buf, strlen(buf), 0, (struct sockaddr *)&remote_addr, &sin_size);
+  }
+  /*
   buf[len] = '\0';
 
   printf ("contents:%s\n", buf);
 
   close (s);
-
-  return 0;
-
+  */
   return 0;
 
 }
