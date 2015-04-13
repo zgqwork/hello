@@ -91,7 +91,7 @@ void send_and_recv( int connfd )
 					exit(1);
 				}
 				server_addr.sin_family = AF_INET;         // host byte order
-				server_addr.sin_port = htons(port);     // short, network byte order
+				server_addr.sin_port = htons(atoi(port));     // short, network byte order
 				server_addr.sin_addr.s_addr = INADDR_ANY;//inet_addr("192.168.0.24"); // automatically fill with my IP
 				memset(server_addr.sin_zero, '\0', sizeof(server_addr.sin_zero));
 				if (bind(sock_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
