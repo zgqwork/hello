@@ -78,15 +78,15 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		}
 		
 		
-		
-		int new_fd = accept(sock_fd, (struct sockaddr *)&client_addr, &sin_size);
+		struct sockaddr_in caddr;
+		int new_fd = accept(sock_fd, (struct sockaddr *)&caddr, &sin_size);
 		if (new_fd <= 0) {
 			perror("accept");
 			return 1;
 		}
 		
-		printf("client %s:%d\n", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
-		sprintf(recvline, "%s %d", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+		printf("client %s:%d\n", inet_ntoa(caddr.sin_addr), ntohs(caddr.sin_port));
+		sprintf(recvline, "%s %d", inet_ntoa(caddr.sin_addr), ntohs(caddr.sin_port));
 		send(new_fd, recvline, strlen(recvline), 0);
 				
 				
