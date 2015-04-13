@@ -56,7 +56,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		int yes = 1;
 
 		socklen_t sin_size;
-		if ((sock_fd = socket(AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0)) == -1) {
+		if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
 			perror("socket");
 			exit(1);
 		}
