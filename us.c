@@ -131,7 +131,7 @@ main (int argc, char *argv[])
       perror ("recvfrom");
       return 1;
     }
-    printf("received packet from %s:%d\n", inet_ntoa(remote_addr.sin_addr), ntohs(remote_addr->sin_port));
+    printf("received packet from %s:%d\n", inet_ntoa(remote_addr.sin_addr), ntohs(remote_addr.sin_port));
 	sendto(s, buf, strlen(buf), 0, (struct sockaddr *)&remote_addr, &sin_size);
   }
   /*
