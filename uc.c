@@ -28,7 +28,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 	
 	
 	if (getsockname(sockfd, &local_addr, &len) == 0) {
-		client_addr = (struct sockaddr_in*)local_addr;
+		client_addr = (struct sockaddr_in*)&local_addr;
 		printf("%s %d\n", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
 	}
 	
