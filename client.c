@@ -207,7 +207,7 @@ int main( int argc, char ** argv )
    
 	if (getsockname(connfd, &local_addr, &len) == 0) {
 		struct sockaddr_in* client_sin = (struct sockaddr_in*)(&local_addr);
-		printf("%s:%d\n", inet_ntoa(client_sin->sin_addr), ntohs(local_addr->sin_port));
+		printf("%s:%d\n", inet_ntoa(client_sin->sin_addr), ntohs(client_sin->sin_port));
 	}
     //!>
     //!> send and recv
