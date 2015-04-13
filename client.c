@@ -67,7 +67,8 @@ void send_and_recv( int connfd )
                 //!> 写到stdout
                 write( STDOUT_FILENO, recv, MAXLINE );
 				printf("\n");
-				sscanf(recv, "%s_%s\n", ip, port);
+				printf("++recv++%s\n", recv);
+				sscanf(recv, "%s_%s", ip, port);
 				printf("%s--%s++++\n", ip, port);
             }
 
