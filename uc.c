@@ -51,6 +51,9 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		sscanf(recvline, "%*s %s", port);
 		printf("port=%s\n", port);
 		
+		
+		
+		/*
 		int sock_fd;  
 		struct sockaddr_in server_addr;
 		int yes = 1;
@@ -82,7 +85,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		int new_fd = accept(sock_fd, (struct sockaddr *)&caddr, &sin_size);
 		if (new_fd <= 0) {
 			perror("accept");
-			return 1;
+			return;
 		}
 		
 		printf("client %s:%d\n", inet_ntoa(caddr.sin_addr), ntohs(caddr.sin_port));
@@ -94,6 +97,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		
 		
 		printf("listen port %s\n", port);
+		*/
 	}
 }
 
