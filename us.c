@@ -26,7 +26,7 @@ void do_echo(int sockfd, struct sockaddr_in *client_addr)
 		printf("---sin_size=%d\n", sin_size);
 		//client_addr = (struct sockaddr_in*)pcliaddr;
 		//printf("%s %d", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
-		printf ("received packet from %s:\n", inet_ntoa (client_addr->sin_addr));
+		printf("received packet from %s:\n", inet_ntoa(client_addr->sin_addr));
 		
 		//sendto(sockfd, mesg, n, 0, (struct sockaddr *)client_addr, sin_size);
 	}
@@ -54,7 +54,22 @@ int main(void)
 
 	//do_echo(sockfd, (struct sockaddr *)&cliaddr, sizeof(cliaddr));
 	
-	do_echo(sockfd, &cliaddr);
+	//do_echo(sockfd, &cliaddr);
+	
+	
+	int n;
+    socklen_t len;
+    char mesg[80];
+	struct sockaddr *pcliaddr = (struct sockaddr *)&cliaddr;
+    for(;;)
+    {
+		len = sizeof(cliaddr);
+        /* waiting for receive data */
+        n = recvfrom(sockfd, mesg, 80, 0, pcliaddr, &len);
+        /* sent data back to client */
+        sendto(sockfd, mesg, n, 0, pcliaddr, len);
+    }
+	
 	
 	return 0;
 }
