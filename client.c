@@ -177,7 +177,7 @@ int main( int argc, char ** argv )
     int       connfd;
     struct sockaddr_in servaddr;
 	struct sockaddr local_addr;
-	socklen_t len = sizeof(sockaddr);
+	socklen_t len = sizeof(struct sockaddr);
    
     if( argc != 2 )
     {
