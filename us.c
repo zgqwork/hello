@@ -67,6 +67,7 @@ int main(void)
         /* waiting for receive data */
         n = recvfrom(sockfd, mesg, 80, 0, pcliaddr, &len);
         /* sent data back to client */
+		printf("received packet from %s:\n", inet_ntoa(pcliaddr.sin_addr));
         sendto(sockfd, mesg, n, 0, pcliaddr, len);
     }
 	
