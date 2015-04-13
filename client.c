@@ -176,6 +176,8 @@ int main( int argc, char ** argv )
     char     buf[MAXLINE];
     int       connfd;
     struct sockaddr_in servaddr;
+	struct sockaddr local_addr;
+	socklen_t len = sizeof(sockaddr);
    
     if( argc != 2 )
     {
@@ -203,7 +205,10 @@ int main( int argc, char ** argv )
         exit(EXIT_FAILURE);
     }   
    
-
+	if (getsockname(connfd, &local_addr, &len) == 0) {
+		struct sockaddr_in* client_sin = (struct sockaddr_in*)(&local_addr);
+		printf("%s:%d\n", inet_ntoa(client_sin.sin_addr), ntohs(client_sin.sin_port));
+	}
     //!>
     //!> send and recv
     send_and_recv( connfd );
