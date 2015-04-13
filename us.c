@@ -25,7 +25,7 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 		client_addr = (struct sockaddr_in*)pcliaddr;
 		sprintf(mesg, "%s %d", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
 		
-		sendto(sockfd, mesg, n, 0, pcliaddr, len);
+		sendto(sockfd, mesg, strlen(mesg), 0, pcliaddr, len);
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
