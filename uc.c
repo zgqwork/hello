@@ -15,14 +15,24 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 {
 	int n;
 	char sendline[80], recvline[80 + 1];
-
+	struct sockaddr local_addr;
+	socklen_t len = sizeof(struct sockaddr);
+	struct sockaddr_in *client_addr;
+	
 	/* connect to server */
 	if(connect(sockfd, (struct sockaddr *)pservaddr, servlen) == -1)
 	{
 		perror("connect error");
 		exit(1);
 	}
-
+	
+	
+	if (getsockname(sockfd, &local_addr, &len) == 0) {
+		client_addr = (struct sockaddr_in*)local_addr;
+		printf("%s %d\n", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
+	}
+	
+	
 	while(fgets(sendline, 80, fp) != NULL)
 	{
 		/* read a line and send to server */

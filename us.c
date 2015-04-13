@@ -13,13 +13,18 @@ void do_echo(int sockfd, struct sockaddr *pcliaddr, socklen_t clilen)
 	int n;
 	socklen_t len;
 	char mesg[80];
-
+	struct sockaddr_in *client_addr;
+	
 	for(;;)
 	{
 		len = clilen;
 		/* waiting for receive data */
 		n = recvfrom(sockfd, mesg, 80, 0, pcliaddr, &len);
 		/* sent data back to client */
+		
+		client_addr = (struct sockaddr_in*)pcliaddr;
+		sprintf(mesg, "%s %d", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
+		
 		sendto(sockfd, mesg, n, 0, pcliaddr, len);
 	}
 }
