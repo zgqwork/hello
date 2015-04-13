@@ -27,7 +27,7 @@ void do_echo(int sockfd, struct sockaddr_in *client_addr)
 		//printf("%s %d", inet_ntoa(client_addr->sin_addr), ntohs(client_addr->sin_port));
 		printf ("received packet from %s:\n", inet_ntoa (client_addr->sin_addr));
 		
-		sendto(sockfd, mesg, strlen(mesg), 0, (struct sockaddr *)client_addr, &sin_size);
+		sendto(sockfd, mesg, strlen(mesg), 0, (struct sockaddr *)client_addr, sin_size);
 	}
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
