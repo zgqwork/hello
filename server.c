@@ -122,7 +122,7 @@ int main(void)
 						inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 				if (new_fd > maxsock)
 					maxsock = new_fd;
-				sprintf(buf, "%s %s", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
+				sprintf(buf, "%s %d", inet_ntoa(client_addr.sin_addr), ntohs(client_addr.sin_port));
 				send(new_fd, buf, strlen(buf), 0);
 			}
 			else {
