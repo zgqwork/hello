@@ -37,7 +37,7 @@ int main(void)
 	char buf[BUF_SIZE];
 	int ret;
 	int i;
-	if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+	if ((sock_fd = socket(AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0)) == -1) {
 		perror("socket");
 		exit(1);
 	}

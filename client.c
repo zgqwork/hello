@@ -82,7 +82,7 @@ void send_and_recv( int connfd )
 				int yes = 1;
 				
 				socklen_t sin_size;
-				if ((sock_fd = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
+				if ((sock_fd = socket(AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0)) == -1) {
 					perror("socket");
 					exit(1);
 				}
@@ -220,7 +220,7 @@ int main( int argc, char ** argv )
     }
    
     //!> 建立套接字
-    if( ( connfd = socket( AF_INET, SOCK_STREAM, 0 ) ) == -1 )
+    if( ( connfd = socket( AF_INET, SOCK_DGRAM/*SOCK_STREAM*/, 0 ) ) == -1 )
     {
         printf("Socket Error...\n" , errno );
         exit( EXIT_FAILURE );
