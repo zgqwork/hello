@@ -37,7 +37,7 @@ int main(void)
 	int sockfd;
 	struct sockaddr_in servaddr, cliaddr;
 
-	sockfd = socket(AF_INET, SOCK_DGRAM, 0); /* create a socket */
+	sockfd = socket(PF_INET, SOCK_DGRAM, 0); /* create a socket */
 
 	/* init servaddr */
 	bzero(&servaddr, sizeof(servaddr));
@@ -67,7 +67,8 @@ int main(void)
         /* waiting for receive data */
         n = recvfrom(sockfd, mesg, 80, 0, pcliaddr, &len);
         /* sent data back to client */
-		printf("received packet from %s:\n", inet_ntoa(cliaddr.sin_addr));
+		if(cliaddr.sin_addr)
+			printf("received packet from %s:\n", inet_ntoa(cliaddr.sin_addr));
         sendto(sockfd, mesg, n, 0, pcliaddr, len);
     }
 	
