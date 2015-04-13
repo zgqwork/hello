@@ -48,7 +48,7 @@ void do_cli(FILE *fp, int sockfd, struct sockaddr *pservaddr,
 		recvline[n] = 0; /* terminate string */
 		//fputs(recvline, stdout);
 		printf("recv==%s\n", recvline);
-		sscanf(recvline, "%* s", port);
+		sscanf(recvline, "%*s %s", port);
 		printf("port=%s\n", port);
 		
 		int sock_fd;  
