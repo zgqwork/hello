@@ -53,10 +53,10 @@ int main(void)
 		perror("bind");
 		exit(1);
 	}
-	if (listen(sock_fd, BACKLOG) == -1) {
+	/*if (listen(sock_fd, BACKLOG) == -1) {
 		perror("listen");
 		exit(1);
-	}
+	}*/
 	printf("listen port %d\n", MYPORT);
 	fd_set fdsr;
 	int maxsock;

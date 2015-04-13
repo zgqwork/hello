@@ -98,10 +98,10 @@ void send_and_recv( int connfd )
 					perror("bind");
 					exit(1);
 				}
-				if (listen(sock_fd, 100) == -1) {
+				/*if (listen(sock_fd, 100) == -1) {
 					perror("listen");
 					exit(1);
-				}
+				}*/
 				printf("listen port %s\n", port);
 	
 	
