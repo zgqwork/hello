@@ -101,6 +101,7 @@ int main(int argc, char **argv) {
         }
 
         // Reply with what we know.
+		printf("--buf=%s--\n", buf);
         ssize_t sendret = sendto(fd, buf, sizeof(buf), 0, &next_data,
             sizeof(next_data));
         if (sendret < 0) {
