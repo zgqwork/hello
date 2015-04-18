@@ -73,7 +73,7 @@ var nativeRTCSessionDescription = (window.mozRTCSessionDescription || window.RTC
         };
 
         // 获取本地音频和视频流
-        getUserMedia({
+        getUserMedia.call(navigator, {
             "audio": true,
             "video": true
         }, function(stream){
