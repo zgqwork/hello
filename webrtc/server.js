@@ -27,8 +27,7 @@ wss.on('connection', function(ws) {
     // otherIndex就反着来，第一个socket的otherIndex下标为1，第二个socket的otherIndex下标为0
     var otherIndex = index--,
     desc = null;
-	if(index<0)
-		otherIndex = 0;
+
     if (otherIndex == 1) {
         desc = 'first socket';
     } else {
